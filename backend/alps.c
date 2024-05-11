@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 	libbpf_set_print(libbpf_print_fn);
 	bump_memlock_rlimit();
 
-	char *filename = "seal_bpf.o";
+	char *filename = "alps_bpf.o";
 	struct bpf_object *obj;
 	struct bpf_link *links[3];
 	struct bpf_program *prog;

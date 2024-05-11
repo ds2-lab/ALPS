@@ -3,4 +3,5 @@ Welcome to ALPS scheduler project. Our innovative kernel scheduler is designed t
 
 ## Getting Started Instructions
 
+ALPS works 
 ## Detailed Instructions

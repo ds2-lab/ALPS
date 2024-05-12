@@ -72,7 +72,7 @@ def main():
     parser.add_argument("--gamma", type=float, help="gamma", default = 1)
     parser.add_argument("--theta", type=float, help="theta", default = 50)
     parser.add_argument("--exp_cpu", type=str, help="CPU profile", default = "/mydata/exp_cpu/test1")
-    parser.add_argument("--exp_result", type=str, help="experiment", default = "")
+    parser.add_argument("--exp_result", type=str, help="experiment", default = "../experiments/seals")
     parser.add_argument("--ml", type=str, help="Machine Learning algorithms", default="avg")
     args = parser.parse_args()
     try:

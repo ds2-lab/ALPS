@@ -14,7 +14,7 @@ The exact software used to build *ALPS* as follows:
 - gcc 
     - version: 11.4
 - go
-    - version: 1.21.4
+    - version: 1.21.10
 - bpftool
     - version: 5.14.0
 -schedtool
@@ -35,5 +35,49 @@ In addition, We modify and provide exact softwares binaries to run FaaS service.
     - commmit hash: 92fbdfe
    
 ### Step-by-Step Installation
+
+#### gcc installation
+```
+apt update -y
+sudo apt install build-essential
+gcc --version 
+```
+
+#### go installtion
+Download the Go language binary archive
+```
+wget https://go.dev/dl/go1.21.10.linux-amd64.tar.gz
+sudo tar -xvf go1.12.linux-amd64.tar.gz
+sudo mv go /usr/local
+```
+Setup Go environment, including `GOROOT` and `GOPATH`. Add environment variables to the `~/.profile`.
+```
+export GOROOT=/usr/local/go
+mkdir $HOME/project
+export GOPATH=$HOME/project
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+```
+Verify installation
+```
+~$ go version
+~$ go version go1.21.10 linux/amd64
+```
+### bpftool
+Clone bpftool repository and build following [installation instruction](https://github.com/libbpf/bpftool/blob/main/README.md)
+```
+git clone --recurse-submodules https://github.com/libbpf/bpftool.git
+```
+### schedtool
+Install schedtool by apt
+```
+sudo apt-get update -y
+sudo apt-get install -y schedtool
+```
+### Docker
+Clone *ALPS* repository and copy docker binaries to `/usr/sbin`
+```
+https://github.com/fishercht1995/SAILS-A-Self-Adaptive-Learned-OS-Scheduler-for-Serverless-Functions.git
+cd 
+```
 
 ## Detailed Instructions

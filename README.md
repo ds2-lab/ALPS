@@ -145,20 +145,20 @@ cd http_client && ./test.sh
 ### Ablation Study
 The frontend scheduler offer two parameter to control policy fine-tuning. By defauly, policy fine-tuning is enable
 ```
-python3 --exp_result ../experiments/seals main.py
+python3 main.py
 ```
 And users can disable unpredictability finetuning and overload finetuning by
 ```
-python3 main.py --exp_result ../experiments/seals --unpred --overload 
+python3 main.py --unpred --overload 
 ```
 
 ### Sensitivity Analysis
 Users can control policy parameters 
 ```
-python3 main.py --alpha 1 --beta 1 --theta 50 --gamma 1 --exp_result ../experiments/seals
+python3 main.py --alpha 1 --beta 1 --theta 50 --gamma 1
 ```
 Users can also change machine learning methods by
 ```
-python3 main.py --ml avg --exp_result ../experiments/seals
-python3 main.py --ml LR --exp_result ../experiments/seals
+python3 main.py --ml avg
+python3 main.py --ml LR
 ```

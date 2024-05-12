@@ -78,18 +78,19 @@ def main():
     parser.add_argument("--overload", action='store_false', help="Overload fine-tune")
     args = parser.parse_args()
     try:
-        stop_event = threading.Event()
-        thread = threading.Thread(target=trace_print, args=(stop_event,args.exp_cpu,))
-        thread.start()
+        if args.exp_result != "":
+            stop_event = threading.Event()
+            thread = threading.Thread(target=trace_print, args=(stop_event,args.exp_cpu,))
+            thread.start()
         while True:
             client_socket, addr = server_socket.accept()
             handle_client(client_socket, args)
     except KeyboardInterrupt:
         print("Server is shutting down.")
     finally:
-        stop_event.set()
-        thread.join()
         if args.exp_result != "":
+            stop_event.set()
+            thread.join()
             update_cpuT(args.exp_cpu, args.exp_result)
         client_socket.close()
         server_socket.close()

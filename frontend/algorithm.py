@@ -28,7 +28,7 @@ def read_data(file = "data.csv"):
             dataWt[classid].append(int(d))
     return dataTs, dataWt,count_class,func_map
 
-def LinerRegression(cpu_ulilization, old_policy = {}):
+def LinerRegression(cpu_ulilization, args, old_policy = {}):
     """
     policy: func_id: [priority, timeSlice]
     """
@@ -60,13 +60,14 @@ def LinerRegression(cpu_ulilization, old_policy = {}):
     updated_policy = {}
     for k in sorted_keys:
         if k in data_stat:
+            alpha = args.alpha
             upperBound = data_stat[k][0] if data_stat[k][0] <= 200 else 200
-            upperBound = int(upperBound * 1.69)
+            upperBound = int(upperBound * alpha)
             if upperBound >= 200:
                 upperBound= 200
-            a = 1
-            b = 1
-            penalty = a * (data_stat[k][2]) + data_stat[k][1]
+            b = args.beta
+            penalty = b * data_stat[k][1]
+            #penalty = a * (data_stat[k][2]) + data_stat[k][1]
             new_v = upperBound - penalty if upperBound - penalty > 0 else 0
             if up_ts !=0 and new_v > up_ts:
                 new_v = up_ts
@@ -74,7 +75,7 @@ def LinerRegression(cpu_ulilization, old_policy = {}):
                 up_ts = int(0.7 * new_v + 0.3 * old_policy[k][1])
             else:
                 up_ts = new_v
-            penalty = 1 if cpu_ulilization < 50 else b * (150 - cpu_ulilization)/100
+            penalty = 1 if cpu_ulilization < args.theta else b * (100 + args.theta - cpu_ulilization)/(100*args.gamma)
             up_ts = int(new_v * penalty)
             updated_policy[k] = [k, up_ts]
     new_policy = {}
@@ -88,7 +89,7 @@ def LinerRegression(cpu_ulilization, old_policy = {}):
             new_policy[k] = old_policy[k]
     return new_policy
 
-def RandomForest(cpu_ulilization, old_policy = {}):
+def RandomForest(cpu_ulilization, args, old_policy = {}):
     if len(old_policy) == 0:
         old_policy = init_policy
     dataTs, dataWt, count_class, func_map = read_data()
@@ -115,13 +116,13 @@ def RandomForest(cpu_ulilization, old_policy = {}):
     updated_policy = {}
     for k in sorted_keys:
         if k in data_stat:
+            alpha = args.alpha
             upperBound = data_stat[k][0] if data_stat[k][0] <= 200 else 200
-            upperBound = int(upperBound * 1.69)
+            upperBound = int(upperBound * alpha)
             if upperBound >= 200:
                 upperBound= 200
-            a = 1
-            b = 1
-            penalty = a * (data_stat[k][2]) + data_stat[k][1]
+            b = args.beta
+            penalty = b * data_stat[k][1]
             new_v = upperBound - penalty if upperBound - penalty > 0 else 0
             if up_ts !=0 and new_v > up_ts:
                 new_v = up_ts
@@ -129,7 +130,7 @@ def RandomForest(cpu_ulilization, old_policy = {}):
                 up_ts = int(0.7 * new_v + 0.3 * old_policy[k][1])
             else:
                 up_ts = new_v
-            penalty = 1 if cpu_ulilization < 50 else b * (150 - cpu_ulilization)/100
+            penalty = 1 if cpu_ulilization < args.theta else b * (100 + args.theta - cpu_ulilization)/(100*args.gamma)
             up_ts = int(new_v * penalty)
             updated_policy[k] = [k, up_ts]
     new_policy = {}
@@ -143,7 +144,7 @@ def RandomForest(cpu_ulilization, old_policy = {}):
             new_policy[k] = old_policy[k]
     return new_policy
 
-def ExponentialWeightedMovingAverage(cpu_ulilization, old_policy = {}):
+def ExponentialWeightedMovingAverage(cpu_ulilization, args, old_policy = {}):
     """
     policy: func_id: [priority, timeSlice]
     """
@@ -171,14 +172,13 @@ def ExponentialWeightedMovingAverage(cpu_ulilization, old_policy = {}):
     updated_policy = {}
     for k in sorted_keys:
         if k in data_stat:
+            alpha = args.alpha
             upperBound = data_stat[k][0] if data_stat[k][0] <= 200 else 200
-            upperBound = int(upperBound * 1.69)
+            upperBound = int(upperBound * alpha)
             if upperBound >= 200:
                 upperBound= 200
-            a = 1
-            b = 0.1
-            print("info: classid: {}, mean: {}, std: {}, wait: {}".format(k, data_stat[k][0], data_stat[k][1], data_stat[k][2]))
-            penalty = a * (data_stat[k][2]) + data_stat[k][1]
+            b = args.beta
+            penalty = b * data_stat[k][1]
             new_v = upperBound - penalty if upperBound - penalty > 0 else 0
             if up_ts !=0 and new_v > up_ts:
                 new_v = up_ts
@@ -186,7 +186,7 @@ def ExponentialWeightedMovingAverage(cpu_ulilization, old_policy = {}):
                 up_ts = int(0.7 * new_v + 0.3 * old_policy[k][1])
             else:
                 up_ts = new_v
-            penalty = 1 if cpu_ulilization < 50 else b * (150 - cpu_ulilization)/100
+            penalty = 1 if cpu_ulilization < args.theta else b * (100 + args.theta - cpu_ulilization)/(100*args.gamma)
             up_ts = int(new_v * penalty)
             updated_policy[k] = [k, up_ts]
     new_policy = {}
@@ -200,7 +200,7 @@ def ExponentialWeightedMovingAverage(cpu_ulilization, old_policy = {}):
             new_policy[k] = old_policy[k]
     return new_policy
 
-def heurtistic(cpu_ulilization, old_policy = {}):
+def heurtistic(cpu_ulilization, args, old_policy = {}):
     if len(old_policy) == 0:
         old_policy = init_policy
     dataTs, dataWt, count_class, func_map = read_data()
@@ -222,15 +222,14 @@ def heurtistic(cpu_ulilization, old_policy = {}):
     updated_policy = {}
     for k in sorted_keys:
         if k in data_stat:
-            alpha = 10
+            alpha = args.alpha
             upperBound = data_stat[k][0] if data_stat[k][0] <= 200 else 200
             upperBound = data_stat[k][0]
             upperBound = int(upperBound * alpha)
             if upperBound >= 200:
                 upperBound= 200
-            a = 1
-            b = 1
-            penalty = a * data_stat[k][1]
+            b = args.beta
+            penalty = b * data_stat[k][1]
             new_v = upperBound - penalty if upperBound - penalty > 0 else 0
             if up_ts !=0 and new_v > up_ts:
                 new_v = up_ts
@@ -238,7 +237,7 @@ def heurtistic(cpu_ulilization, old_policy = {}):
                 up_ts = int(0.7 * new_v + 0.3 * old_policy[k][1])
             else:
                 up_ts = new_v
-            penalty = 1 if cpu_ulilization < 50 else (150 - cpu_ulilization)/(100 * b)
+            penalty = 1 if cpu_ulilization < args.theta else b * (100 + args.theta - cpu_ulilization)/(100*args.gamma)
             up_ts = int(new_v * penalty)
             updated_policy[k] = [k, up_ts]
     new_policy = {}

@@ -125,9 +125,15 @@ lsof -i :8083
 kill -9 {PID}
 ```
 ## Detailed Instructions
-To test performance of *ALPS* we provides some helper scripts, firstly, start and delete multiple functions:
+To test performance of *ALPS*, we provides some helper scripts, firstly, start and delete multiple functions:
 ```
 cd experiments
 ./init_function.sh # init functions
 ./delete_function.sh # delete function workers
+```
+Then start frontend and backend. 
+Submit benchmark request by http client
+```
+go build run.go
+cd http_client && ./test.sh 
 ```

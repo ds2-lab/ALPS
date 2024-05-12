@@ -8,6 +8,7 @@ import threading
 import struct
 import socket
 import psutil
+import argparse
 
 SERVER_IP = '127.0.0.1'
 SERVER_PORT = 8083
@@ -29,7 +30,7 @@ def pack_policy(new_policy):
         packed_policy.append(v)
     return [int(x) for x in packed_policy]
 
-def handle_client(client_socket):
+def handle_client(client_socket, args):
     init = True
     init_v = 0
     while True:
@@ -45,7 +46,14 @@ def handle_client(client_socket):
         wl, init_v = workload.readWorkload(init, init_v)
         init = False
         simulate.simulate(wl, "srtf", "", timeSlice = 8, period = 2000, CScost = 0)
-        new = algorithm.heurtistic(cpu_ulilization, previous)
+        if args.ml == "LR":
+            new = algorithm.LinerRegression(cpu_ulilization, args, previous)
+        elif args.ml == "RF":
+            new = algorithm.RandomForest(cpu_ulilization, args, previous)
+        elif args.ml == "EWMV":
+            new = algorithm.ExponentialWeightedMovingAverage(cpu_ulilization, args, previous)
+        else:
+            new = algorithm.heurtistic(cpu_ulilization, args, previous)
         new = pack_policy(new)
 
         response = struct.pack(STRUCT_FORMAT, *new)
@@ -58,21 +66,29 @@ def main():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((SERVER_IP, SERVER_PORT))
     server_socket.listen()
-    exp = "/mydata/exp_cpu/test1"
-    exp_result = "/root/artifact/iad_huawei_15000_seals_seals_c_1"
+    parser = argparse.ArgumentParser(description="ALPS: Adaptive-learning Priority OS scheduler for Serverless Functions")
+    parser.add_argument("--alpha", type=float, help="alpha", default = 1)
+    parser.add_argument("--beta", type=float, help="beta", default = 1)
+    parser.add_argument("--gamma", type=float, help="gamma", default = 1)
+    parser.add_argument("--theta", type=float, help="theta", default = 50)
+    parser.add_argument("--exp_cpu", type=str, help="CPU profile", default = "/mydata/exp_cpu/test1")
+    parser.add_argument("--exp_result", type=str, help="experiment", default = "")
+    parser.add_argument("--ml", type=str, help="Machine Learning algorithms", default="avg")
+    args = parser.parse_args()
     try:
         stop_event = threading.Event()
-        thread = threading.Thread(target=trace_print, args=(stop_event,exp,))
+        thread = threading.Thread(target=trace_print, args=(stop_event,args.exp,))
         thread.start()
         while True:
             client_socket, addr = server_socket.accept()
-            handle_client(client_socket)
+            handle_client(client_socket, args)
     except KeyboardInterrupt:
         print("Server is shutting down.")
     finally:
         stop_event.set()
         thread.join()
-        update_cpuT(exp, exp_result)
+        if args.exp_result != "":
+            update_cpuT(args.exp, args.exp_result)
         client_socket.close()
         server_socket.close()
 

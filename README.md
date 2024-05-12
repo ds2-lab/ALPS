@@ -64,12 +64,12 @@ Verify installation
 ~$ go version
 ~$ go version go1.21.10 linux/amd64
 ```
-### bpftool
+#### bpftool
 Clone bpftool repository and build following [installation instruction](https://github.com/libbpf/bpftool/blob/main/README.md)
 ```
 git clone --recurse-submodules https://github.com/libbpf/bpftool.git
 ```
-### schedtool
+#### schedtool
 Install schedtool by apt
 ```
 sudo apt-get update -y
@@ -83,6 +83,16 @@ cd docker_binaries
 cp binary-client/* /usr/bin/
 cp binary-daemon/* /usr/bin/
 ```
-OpenLambda
+#### OpenLambda
+Build OL worker image
+```
+cd experiments && make imgs/lambda
+```
+We modify openlambda to support *ALPS* JSON configuration schema. We provide the `ol` binary and an example of configuration file at `experiments/`. In addition to OL configuration, *ALPS* allows user to define function meta to distinguish scheduling in the kernel as follow:
+```
+"seal_priority": "Function UID",
+"function_name" : "Function Name",
+``` 
+### Hello-Word Example
 
 ## Detailed Instructions

@@ -77,7 +77,7 @@ def main():
     args = parser.parse_args()
     try:
         stop_event = threading.Event()
-        thread = threading.Thread(target=trace_print, args=(stop_event,args.exp,))
+        thread = threading.Thread(target=trace_print, args=(stop_event,args.exp_result,))
         thread.start()
         while True:
             client_socket, addr = server_socket.accept()

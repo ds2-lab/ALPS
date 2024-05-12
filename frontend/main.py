@@ -74,6 +74,8 @@ def main():
     parser.add_argument("--exp_cpu", type=str, help="CPU profile", default = "/mydata/exp_cpu/test1")
     parser.add_argument("--exp_result", type=str, help="experiment", default = "../experiments/seals")
     parser.add_argument("--ml", type=str, help="Machine Learning algorithms", default="avg")
+    parser.add_argument("--unpred", action='store_true', help="Unpreditability fine-tune")
+    parser.add_argument("--overload", action='store_true', help="Overload fine-tune")
     args = parser.parse_args()
     try:
         stop_event = threading.Event()

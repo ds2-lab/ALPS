@@ -60,22 +60,26 @@ def LinerRegression(cpu_ulilization, args, old_policy = {}):
     updated_policy = {}
     for k in sorted_keys:
         if k in data_stat:
-            alpha = args.alpha
-            upperBound = data_stat[k][0] if data_stat[k][0] <= 200 else 200
-            upperBound = int(upperBound * alpha)
-            if upperBound >= 200:
-                upperBound= 200
-            b = args.beta
-            penalty = b * data_stat[k][1]
+            if args.unpred:
+                upperBound = int(upperBound * alpha)
+                if upperBound >= 200:
+                    upperBound= 200
+                b = args.beta
+                penalty = b * data_stat[k][1]
+                new_v = upperBound - penalty if upperBound - penalty > 0 else 0
+            else:
+                new_v = upperBound
             #penalty = a * (data_stat[k][2]) + data_stat[k][1]
-            new_v = upperBound - penalty if upperBound - penalty > 0 else 0
             if up_ts !=0 and new_v > up_ts:
                 new_v = up_ts
             if k in old_policy and old_policy[k][1] > 1:
                 up_ts = int(0.7 * new_v + 0.3 * old_policy[k][1])
             else:
                 up_ts = new_v
-            penalty = 1 if cpu_ulilization < args.theta else b * (100 + args.theta - cpu_ulilization)/(100*args.gamma)
+            if args.overload:
+                penalty = 1 if cpu_ulilization < args.theta else b * (100 + args.theta - cpu_ulilization)/(100*args.gamma)
+            else:
+                penalty = 1
             up_ts = int(new_v * penalty)
             updated_policy[k] = [k, up_ts]
     new_policy = {}
@@ -116,21 +120,25 @@ def RandomForest(cpu_ulilization, args, old_policy = {}):
     updated_policy = {}
     for k in sorted_keys:
         if k in data_stat:
-            alpha = args.alpha
-            upperBound = data_stat[k][0] if data_stat[k][0] <= 200 else 200
-            upperBound = int(upperBound * alpha)
-            if upperBound >= 200:
-                upperBound= 200
-            b = args.beta
-            penalty = b * data_stat[k][1]
-            new_v = upperBound - penalty if upperBound - penalty > 0 else 0
+            if args.unpred:
+                upperBound = int(upperBound * alpha)
+                if upperBound >= 200:
+                    upperBound= 200
+                b = args.beta
+                penalty = b * data_stat[k][1]
+                new_v = upperBound - penalty if upperBound - penalty > 0 else 0
+            else:
+                new_v = upperBound
             if up_ts !=0 and new_v > up_ts:
                 new_v = up_ts
             if k in old_policy and old_policy[k][1] > 1:
                 up_ts = int(0.7 * new_v + 0.3 * old_policy[k][1])
             else:
                 up_ts = new_v
-            penalty = 1 if cpu_ulilization < args.theta else b * (100 + args.theta - cpu_ulilization)/(100*args.gamma)
+            if args.overload:
+                penalty = 1 if cpu_ulilization < args.theta else b * (100 + args.theta - cpu_ulilization)/(100*args.gamma)
+            else:
+                penalty = 1
             up_ts = int(new_v * penalty)
             updated_policy[k] = [k, up_ts]
     new_policy = {}
@@ -172,21 +180,25 @@ def ExponentialWeightedMovingAverage(cpu_ulilization, args, old_policy = {}):
     updated_policy = {}
     for k in sorted_keys:
         if k in data_stat:
-            alpha = args.alpha
-            upperBound = data_stat[k][0] if data_stat[k][0] <= 200 else 200
-            upperBound = int(upperBound * alpha)
-            if upperBound >= 200:
-                upperBound= 200
-            b = args.beta
-            penalty = b * data_stat[k][1]
-            new_v = upperBound - penalty if upperBound - penalty > 0 else 0
+            if args.unpred:
+                upperBound = int(upperBound * alpha)
+                if upperBound >= 200:
+                    upperBound= 200
+                b = args.beta
+                penalty = b * data_stat[k][1]
+                new_v = upperBound - penalty if upperBound - penalty > 0 else 0
+            else:
+                new_v = upperBound
             if up_ts !=0 and new_v > up_ts:
                 new_v = up_ts
             if k in old_policy and old_policy[k][1] > 1:
                 up_ts = int(0.7 * new_v + 0.3 * old_policy[k][1])
             else:
                 up_ts = new_v
-            penalty = 1 if cpu_ulilization < args.theta else b * (100 + args.theta - cpu_ulilization)/(100*args.gamma)
+            if args.overload:
+                penalty = 1 if cpu_ulilization < args.theta else b * (100 + args.theta - cpu_ulilization)/(100*args.gamma)
+            else:
+                penalty = 1
             up_ts = int(new_v * penalty)
             updated_policy[k] = [k, up_ts]
     new_policy = {}
@@ -225,19 +237,25 @@ def heurtistic(cpu_ulilization, args, old_policy = {}):
             alpha = args.alpha
             upperBound = data_stat[k][0] if data_stat[k][0] <= 200 else 200
             upperBound = data_stat[k][0]
-            upperBound = int(upperBound * alpha)
-            if upperBound >= 200:
-                upperBound= 200
-            b = args.beta
-            penalty = b * data_stat[k][1]
-            new_v = upperBound - penalty if upperBound - penalty > 0 else 0
+            if args.unpred:
+                upperBound = int(upperBound * alpha)
+                if upperBound >= 200:
+                    upperBound= 200
+                b = args.beta
+                penalty = b * data_stat[k][1]
+                new_v = upperBound - penalty if upperBound - penalty > 0 else 0
+            else:
+                new_v = upperBound
             if up_ts !=0 and new_v > up_ts:
                 new_v = up_ts
             if k in old_policy and old_policy[k][1] > 1:
                 up_ts = int(0.7 * new_v + 0.3 * old_policy[k][1])
             else:
                 up_ts = new_v
-            penalty = 1 if cpu_ulilization < args.theta else b * (100 + args.theta - cpu_ulilization)/(100*args.gamma)
+            if args.overload:
+                penalty = 1 if cpu_ulilization < args.theta else b * (100 + args.theta - cpu_ulilization)/(100*args.gamma)
+            else:
+                penalty = 1
             up_ts = int(new_v * penalty)
             updated_policy[k] = [k, up_ts]
     new_policy = {}

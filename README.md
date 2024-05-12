@@ -3,7 +3,7 @@ Welcome to ALPS scheduler project. Our innovative kernel scheduler is designed t
 
 ## Getting Started Instructions
 
-<font color=blue>For the artifact review, we recommend that reviewers utilize our dedicated deployment environment, iad-1, This which features a bare-metal machine equipped with 56 CPUs and 128 MB of memory. To use this environment and save effort on setup, please contact [Yuqi](jwx3px@virginia). I will assist with setting up the virtual machine and scheduling your access.</font>
+<font color=blue>For the artifact review, we recommend that reviewers utilize our dedicated deployment environment, iad-1, which features a bare-metal machine equipped with 56 CPUs and 128 MB of memory. To use this environment and save effort on setup, please contact [Yuqi](jwx3px@virginia). I will assist with setting up the virtual machine and scheduling your access.</font>
 
 ### Operating System required:
 

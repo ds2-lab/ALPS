@@ -95,4 +95,28 @@ We modify openlambda to support *ALPS* JSON configuration schema. We provide the
 ``` 
 ### Hello-Word Example
 
+Start Docker service
+```
+cd experiments && ./docker.sh
+```
+Run *ALPS* frontend scheduler 
+```
+cd frontend && python main.py
+```
+Build and Run *AlPS* backend
+```
+cd backend
+make bpf && make alps
+./alps.o
+```
+Run Openlambda
+```
+cd experiments && ./ol worker --path={PATH}
+```
+Now invoke your lambda
+```
+curl -X POST http://localhost:5002/run/fib \
+     -H "Content-Type: application/json" \
+     -d '{"n":"30", "id":"20", "job":"fib"}'
+``` 
 ## Detailed Instructions

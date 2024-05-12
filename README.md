@@ -5,7 +5,7 @@ Welcome to ALPS scheduler project. Our innovative kernel scheduler is designed t
 ## Getting Started Instructions
 
 <font color=blue>For the artifact review, we recommend that reviewers utilize our dedicated deployment environment, iad-1, which features a bare-metal machine equipped with 56 CPUs and 128 MB of memory. To use this environment and save effort on setup, please contact [Yuqi](jwx3px@virginia). I will assist with setting up the virtual machine and scheduling your access.</font>
-
+[![DOI](https://zenodo.org/badge/798944569.svg)](https://zenodo.org/doi/10.5281/zenodo.11181953)
 ### Operating System required:
 
 We have implemented ALPS based on Linux kernel version 5.18-rc5. You must compile and run the *ALPS* on the the [kernel](https://github.com/fishercht1995/linux.git). We recommend build the kernel based on Ubuntu 22.04 LTS. 

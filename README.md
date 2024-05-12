@@ -132,6 +132,10 @@ cd experiments
 ./delete_function.sh # delete function workers
 ```
 Then start frontend and backend. 
+```
+cd frontend && python3 main.py --alpha 1 --beta 1 --ml avg --exp_result ../experiments/seals
+cd backend && ./alps.o
+```
 Submit benchmark request by http client
 ```
 go build run.go

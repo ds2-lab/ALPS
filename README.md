@@ -3,5 +3,37 @@ Welcome to ALPS scheduler project. Our innovative kernel scheduler is designed t
 
 ## Getting Started Instructions
 
-ALPS works 
+### Operating System required:
+
+We have implemented ALPS based on Linux kernel version 5.18-rc5. You must compile and run the *ALPS* on the the [kernel](https://github.com/fishercht1995/linux.git). We recommend build the kernel based on Ubuntu 22.04 LTS.
+
+### Software Required
+
+The exact software used to build *ALPS* as follows:
+
+- gcc 
+    - version: 11.4
+- go
+    - version: 1.21.4
+- bpftool
+    - version: 5.14.0
+-schedtool
+    - version 1.3.0
+
+In addition, We modify and provide exact softwares binaries to run FaaS service. 
+ 
+- Docker
+    - Docker client
+        - version: 20.10.25
+    - dockerd
+        - version: 20.10.25
+    - runc
+        - version: 1.1.10
+    -  containerd:
+        - version 1.6.24
+- OpenLambda:
+    - commmit hash: 92fbdfe
+   
+### Step-by-Step Installation
+
 ## Detailed Instructions

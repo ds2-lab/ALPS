@@ -1,3 +1,3 @@
 echo "SEALS experiment"
-./start.sh seals
+./start.sh ../experiments/seals
 sleep 10

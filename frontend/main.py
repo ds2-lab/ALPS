@@ -88,7 +88,7 @@ def main():
         stop_event.set()
         thread.join()
         if args.exp_result != "":
-            update_cpuT(args.exp, args.exp_result)
+            update_cpuT(args.exp_cpu, args.exp_result)
         client_socket.close()
         server_socket.close()
 

@@ -1,0 +1,39 @@
+{
+	"worker_dir": "{workspace}/worker1/worker",
+	"worker_port": "5001",
+	"sandbox": "docker",
+	"server_mode": "lambda",
+	"registry": "{workspace}/worker1/registry",
+	"registry_cache_ms": 5000,
+	"Pkgs_dir": "{workspace}/lambda/packages",
+	"pip_mirror": "",
+	"mem_pool_mb": 128106,
+	"import_cache_tree": "",
+	"SOCK_base_path": "{workspace}/worker1/lambda",
+	"sandbox_config": {},
+	"docker_runtime": "",
+	"seal_priority": "Function UID",
+	"function_name" : "Function Name",
+	"limits": {
+		"procs": 10,
+		"mem_mb": 50,
+		"swappiness": 0,
+		"installer_mem_mb": 500
+	},
+	"features": {
+		"reuse_cgroups": false,
+		"import_cache": false,
+		"downsize_paused_mem": true
+	},
+	"trace": {
+		"cgroups": false,
+		"memory": false,
+		"evictor": false,
+		"package": false
+	},
+	"storage": {
+		"root": "private",
+		"scratch": "",
+		"code": ""
+	}
+}

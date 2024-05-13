@@ -121,11 +121,6 @@ curl -X POST http://localhost:5002/run/fib \
      -H "Content-Type: application/json" \
      -d '{"n":"30", "id":"20", "job":"fib"}'
 ``` 
-Disconnect frontend by CTRL-C to interrupt frontend server. If frontend does not terminate, please kill the process manual by
-```
-lsof -i :8083
-kill -9 {PID}
-```
 ## Detailed Instructions
 To test performance of *ALPS*, we provides some helper scripts, firstly, start and delete multiple functions:
 ```

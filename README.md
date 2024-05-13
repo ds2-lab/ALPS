@@ -5,7 +5,7 @@ Welcome to ALPS scheduler project. Our innovative kernel scheduler is designed t
 
 <font color=blue>For the artifact review, we recommend that reviewers to test in our dedicated deployment environment, iad-1, which features a bare-metal machine equipped with 56 CPUs and 256 MB of memory.</font>
 
-[![DOI](https://zenodo.org /badge/798944569.svg)](https://zenodo.org/doi/10.5281/zenodo.11181953)
+[![DOI](https://zenodo.org/badge/798944569.svg)](https://zenodo.org/doi/10.5281/zenodo.11181953)
 
 ### Operating System required:
 

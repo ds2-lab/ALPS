@@ -3,7 +3,7 @@ Welcome to ALPS scheduler project. Our innovative kernel scheduler is designed t
 
 ## Getting Started Instructions
 
-<font color=blue>For the artifact review, we recommend that reviewers to test in our dedicated deployment environment, iad-1, which features a bare-metal machine equipped with 56 CPUs and 256 MB of memory.</font>
+<font color=blue> For ATC'24 Artifact review, to save reviewers’ effort, we strongly recommend that reviewers use our dedicated development machine. We will provide support to ensure that reviewers have full access to the machine throughout the artifact review process.</font>
 
 [![DOI](https://zenodo.org/badge/798944569.svg)](https://zenodo.org/doi/10.5281/zenodo.11181953)
 

@@ -7,7 +7,7 @@ Welcome to ALPS scheduler project. Our innovative kernel scheduler is designed t
 
 [![DOI](https://zenodo.org/badge/798944569.svg)](https://zenodo.org/doi/10.5281/zenodo.11181953)
 
-### Operating System required:
+### Operating System required
 
 We have implemented ALPS based on Linux kernel version 5.18-rc5. You must compile and run the *ALPS* on the the [kernel](https://github.com/fishercht1995/linux.git). We recommend build the kernel based on Ubuntu 22.04 LTS. 
 

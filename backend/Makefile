@@ -1,5 +1,5 @@
 # FIX ME
-TREE=/linux
+TREE=Linux
 
 BPFTOOL=$(TREE)/tools/bpf/bpftool/bpftool
 LIBBPF=$(TREE)/tools/lib/bpf/libbpf.a

@@ -1,12 +1,11 @@
 # ALPS: An Adaptive-Learning Priority OS Scheduler for Serverless-Functions
-![](./figure/ALPS.jpg)
 Welcome to ALPS scheduler project. Our innovative kernel scheduler is designed to enhance the performance of Function-as-a-Service (FaaS) workloads, which are known for their ephermeral, highly concurrent, and bursty nature. Existing OS schedulers, such as Linux Completely Fair Scheduler (CFS), often fail to meet the unique demands of serverless functions, particularly those with short execution time. ALPS addresses this challenge by approximating the principles of the Shortest Remaining Process Time (SRPT) with the robust framework on CFS, delivering a dynamic, application-aware OS scheduling solution.
 
 ## Getting Started Instructions
 
 <font color=blue>For the artifact review, we recommend that reviewers to test in our dedicated deployment environment, iad-1, which features a bare-metal machine equipped with 56 CPUs and 256 MB of memory.</font>
 
-[![DOI](https://zenodo.org/badge/798944569.svg)](https://zenodo.org/doi/10.5281/zenodo.11181953)
+[![DOI](https://zenodo.org /badge/798944569.svg)](https://zenodo.org/doi/10.5281/zenodo.11181953)
 
 ### Operating System required:
 

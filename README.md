@@ -21,7 +21,7 @@ The exact software used to build *ALPS* as follows:
     - version: 1.21.10
 - bpftool
     - version: 5.14.0
--schedtool
+- schedtool
     - version 1.3.0
 
 In addition, We modify and provide exact softwares binaries to run FaaS service. 

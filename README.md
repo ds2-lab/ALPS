@@ -1,4 +1,4 @@
-# ALPS: An Adaptive-Learning, Priority OS Scheduler for Serverless-Functions
+# ALPS: An Adaptive-Learning, Priority OS Scheduler for Serverless Functions
 
 <img src="./figure/ALPS.jpg" height="30%">
 
